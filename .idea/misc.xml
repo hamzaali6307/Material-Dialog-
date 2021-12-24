@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../layout/compose-model-1640260884754.xml" value="0.20914479254868756" />
+        <entry key="PCCustomDialog/src/main/res/layout/dialog_alert.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/btn_round_corners.xml" value="0.2569230769230769" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23072916666666668" />
+        <entry key="app/src/main/res/layout/dialog_alert.xml" value="0.25" />
       </map>
     </option>
   </component>

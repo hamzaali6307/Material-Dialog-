@@ -7,23 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.fragment.app.DialogFragment
-import com.phonecheck.pccustomdialog.ui.PCDialogNotifier
-import com.phonecheck.pccustomdialog.ui.theme.*
+import com.phonecheck.pccustomdialog.databinding.DialogAlertBinding
+import com.phonecheck.pccustomdialog.ui.interfaces.PCDialogNotifier
+import com.phonecheck.pccustomdialog.utils.isVisible
+import com.phonecheck.pccustomdialog.utils.setMultipleClickListener
 
-internal class PCCustomDialog : DialogFragment() {
+internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
+
+    private var _binding: DialogAlertBinding? = null
+    private val binding get() = _binding!!
 
     private var mPositiveButtonListener: PCDialogNotifier? = null
     private var mNegativeButtonListener: PCDialogNotifier? = null
@@ -33,7 +26,15 @@ internal class PCCustomDialog : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
+        _binding = DialogAlertBinding.inflate(inflater)
+
+        initViews()
+
+        return _binding?.root
+    }
+
+    private fun initViews() {
 
         val bundle = arguments
 
@@ -44,128 +45,21 @@ internal class PCCustomDialog : DialogFragment() {
         val mNegativeButtonText = bundle.getString("mNegativeButtonText")!!
         val mNeutralButtonText = bundle.getString("mNeutralButtonText")!!
 
-        return ComposeView(requireContext()).apply {
-            setContent {
-                PCCustomDialogTheme {
-                    Surface(
-                        color = MaterialTheme.colors.background,
-                        modifier = Modifier.padding(20.dp),
-                        shape = RoundedCornerShape(18.dp)
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentSize(Alignment.Center)
-                                .padding(10.dp)
-                        ) {
+        with(binding) {
 
-                            Spacer(modifier = Modifier.height(10.dp))
+            btnPass.isVisible(mPositiveButtonText.isNotEmpty())
+            btnFail.isVisible(mNegativeButtonText.isNotEmpty())
+            btnRetry.isVisible(mNeutralButtonText.isNotEmpty())
 
-                            Text(
-                                text = title,
-                                modifier = Modifier.fillMaxWidth(),
-                                style = TextStyle(
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Bold,
-                                    textAlign = TextAlign.Center,
-                                    fontFamily = fonts,
-                                    fontSize = 20.sp
-                                ),
-                            )
+            tvTitle.text = title
+            tvMessage.text = message
+            btnPass.text = mPositiveButtonText
+            btnFail.text = mNegativeButtonText
+            btnRetry.text = mNeutralButtonText
 
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Text(
-                                text = message,
-                                modifier = Modifier.fillMaxWidth(),
-                                style = TextStyle(
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Normal,
-                                    textAlign = TextAlign.Center,
-                                    fontFamily = fonts,
-                                    fontSize = 16.sp
-                                )
-                            )
-
-                            Spacer(modifier = Modifier.height(20.dp))
-
-                            if (mPositiveButtonText.isNotEmpty()) {
-
-                                Button(
-                                    onClick = {
-                                        mPositiveButtonListener?.onClick(dialog!!)
-                                    }, shape = RoundedCornerShape(23.dp),
-                                    colors = ButtonDefaults.buttonColors(
-                                        backgroundColor = colorSuccess,
-                                        contentColor = Color.White
-                                    ),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(50.dp)
-
-                                ) {
-                                    Text(
-                                        text = mPositiveButtonText,
-                                        style = MaterialTheme.typography.button
-                                    )
-                                }
-
-                                Spacer(modifier = Modifier.height(8.dp))
-                            }
-
-                            if (mNegativeButtonText.isNotEmpty()) {
-
-                                Button(
-                                    onClick = {
-                                        mNegativeButtonListener?.onClick(dialog!!)
-                                    }, shape = RoundedCornerShape(23.dp),
-                                    colors = ButtonDefaults.buttonColors(
-                                        backgroundColor = colorFailure,
-                                        contentColor = Color.White
-                                    ),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(50.dp)
-
-                                ) {
-                                    Text(
-                                        text = mNegativeButtonText,
-                                        style = MaterialTheme.typography.button,
-                                    )
-                                }
-
-                                Spacer(modifier = Modifier.height(8.dp))
-                            }
-
-                            if (mNeutralButtonText.isNotEmpty()) {
-
-                                Button(
-                                    onClick = {
-                                        mNeutralButtonListener?.onClick(dialog!!)
-                                    }, shape = RoundedCornerShape(23.dp),
-                                    colors = ButtonDefaults.buttonColors(
-                                        backgroundColor = colorRetry,
-                                        contentColor = Color.Black
-                                    ),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(50.dp)
-                                ) {
-                                    Text(
-                                        text = mNeutralButtonText,
-                                        style = MaterialTheme.typography.button
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            dialog!!.window!!.apply {
-                requestFeature(Window.FEATURE_NO_TITLE)
-                setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
-            }
+            setMultipleClickListener(
+                btnPass, btnFail, btnRetry
+            )
         }
     }
 
@@ -197,6 +91,26 @@ internal class PCCustomDialog : DialogFragment() {
 
     fun setNeutralCallBack(listener: PCDialogNotifier) {
         this.mNeutralButtonListener = listener
+    }
+
+    override fun onClick(v: View?) {
+
+        dialog?.dismiss()
+
+        when (v) {
+
+            binding.btnPass -> mPositiveButtonListener?.onClick(dialog!!)
+
+            binding.btnFail -> mNegativeButtonListener?.onClick(dialog!!)
+
+            binding.btnRetry -> mNeutralButtonListener?.onClick(dialog!!)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (dialog != null && dialog!!.isShowing) dialog!!.dismiss()
+        _binding = null
     }
 }
 

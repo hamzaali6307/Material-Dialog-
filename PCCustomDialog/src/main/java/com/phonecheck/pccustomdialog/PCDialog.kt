@@ -3,7 +3,7 @@ package com.phonecheck.pccustomdialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.phonecheck.pccustomdialog.ui.PCDialogNotifier
+import com.phonecheck.pccustomdialog.ui.interfaces.PCDialogNotifier
 import com.phonecheck.pccustomdialog.ui.dialog.PCCustomDialog
 
 open class PCDialog {

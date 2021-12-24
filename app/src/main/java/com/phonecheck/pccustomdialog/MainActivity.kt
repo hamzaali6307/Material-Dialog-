@@ -15,24 +15,21 @@ class MainActivity : AppCompatActivity() {
 
         binding.root.setOnClickListener {
 
-              PCDialog.Builder(this).apply {
-                  setTitle("Pop-Up Title")
-                  setMessage("Message goes here")
-                  setCancelable(true)
-                  setPositiveButton("Blue Button") { dialog ->
-                      Log.e("TAG", "Positive")
-                      dialog.dismiss()
-                  }
-                  setNegativeButton("Red Button") { dialog ->
-                      dialog.dismiss()
-                      Log.e("TAG", "Negative")
-                  }
-                  setNeutralButton("Gray Button") { dialog ->
-                      dialog.dismiss()
-                      Log.e("TAG", "Neutral")
-                  }
-                  show()
-              }
+            PCDialog.Builder(this).apply {
+                setTitle("Pop-Up Title")
+                setMessage("Message goes here")
+                setCancelable(true)
+                setPositiveButton("Blue Button") {
+                    Log.e("TAG", "Positive")
+                }
+                setNegativeButton("Red Button") {
+                    Log.e("TAG", "Negative")
+                }
+                setNeutralButton("Gray Button") {
+                    Log.e("TAG", "Neutral")
+                }
+                show()
+            }
         }
     }
 }
