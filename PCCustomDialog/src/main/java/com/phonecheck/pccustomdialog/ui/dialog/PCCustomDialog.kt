@@ -7,15 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Button
 import androidx.fragment.app.DialogFragment
-import com.phonecheck.pccustomdialog.databinding.DialogAlertBinding
+import com.phonecheck.pccustomdialog.databinding.DialogCustomAlertBinding
 import com.phonecheck.pccustomdialog.ui.interfaces.PCDialogNotifier
-import com.phonecheck.pccustomdialog.utils.isVisible
-import com.phonecheck.pccustomdialog.utils.setMultipleClickListener
+
 
 internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
 
-    private var _binding: DialogAlertBinding? = null
+    private var _binding: DialogCustomAlertBinding? = null
     private val binding get() = _binding!!
 
     private var mPositiveButtonListener: PCDialogNotifier? = null
@@ -27,7 +27,7 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = DialogAlertBinding.inflate(inflater)
+        _binding = DialogCustomAlertBinding.inflate(inflater)
 
         initViews()
 
@@ -47,20 +47,20 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
 
         with(binding) {
 
-            btnPass.isVisible(mPositiveButtonText.isNotEmpty())
-            btnFail.isVisible(mNegativeButtonText.isNotEmpty())
-            btnRetry.isVisible(mNeutralButtonText.isNotEmpty())
+            tvDialogTitle.text = title
+            tvDialogMessage.text = message
 
-            tvTitle.text = title
-            tvMessage.text = message
-            btnPass.text = mPositiveButtonText
-            btnFail.text = mNegativeButtonText
-            btnRetry.text = mNeutralButtonText
-
-            setMultipleClickListener(
-                btnPass, btnFail, btnRetry
-            )
+            btnDialogPositive.setUpButton(mPositiveButtonText)
+            btnDialogNegative.setUpButton(mNegativeButtonText)
+            btnDialogNeutral.setUpButton(mNeutralButtonText)
         }
+    }
+
+    private fun Button.setUpButton(title: String) {
+
+        visibility = if (title.isNotEmpty()) View.VISIBLE else View.GONE
+        text = title
+        setOnClickListener(this@PCCustomDialog)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -73,11 +73,12 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
         super.onStart()
         val dialog = dialog
         if (dialog != null) {
-            dialog.window!!.setLayout(
+            val window = dialog.window
+            window!!.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+            window.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
         }
     }
 
@@ -99,11 +100,11 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
 
         when (v) {
 
-            binding.btnPass -> mPositiveButtonListener?.onClick(dialog!!)
+            binding.btnDialogPositive -> mPositiveButtonListener?.onClick(dialog!!)
 
-            binding.btnFail -> mNegativeButtonListener?.onClick(dialog!!)
+            binding.btnDialogNegative -> mNegativeButtonListener?.onClick(dialog!!)
 
-            binding.btnRetry -> mNeutralButtonListener?.onClick(dialog!!)
+            binding.btnDialogNeutral -> mNeutralButtonListener?.onClick(dialog!!)
         }
     }
 

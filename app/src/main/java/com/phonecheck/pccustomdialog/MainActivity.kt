@@ -3,6 +3,7 @@ package com.phonecheck.pccustomdialog
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.phonecheck.pccustomdialog.PCDialog.show
 import com.phonecheck.pccustomdialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +14,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.root.setOnClickListener {
+        supportFragmentManager.beginTransaction().replace(R.id.fl_main, SampleDialogFragment())
+            .commit()
+
+        binding.btnShow.setOnClickListener {
 
             PCDialog.Builder(this).apply {
                 setTitle("Pop-Up Title")
@@ -31,5 +35,6 @@ class MainActivity : AppCompatActivity() {
                 show()
             }
         }
+
     }
 }

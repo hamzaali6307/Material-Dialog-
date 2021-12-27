@@ -3,26 +3,26 @@ package com.phonecheck.pccustomdialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.phonecheck.pccustomdialog.ui.interfaces.PCDialogNotifier
 import com.phonecheck.pccustomdialog.ui.dialog.PCCustomDialog
+import com.phonecheck.pccustomdialog.ui.interfaces.PCDialogNotifier
 
-open class PCDialog {
+object PCDialog {
 
-    protected var mTitle = ""
-    protected var mMessage = ""
-    protected var mPositiveButtonText = ""
-    protected var mNegativeButtonText = ""
-    protected var mNeutralButtonText = ""
+    internal var mTitle = ""
+    internal var mMessage = ""
+    internal var mPositiveButtonText = ""
+    internal var mNegativeButtonText = ""
+    internal var mNeutralButtonText = ""
 
-    protected var isCancelable = true
+    internal var isCancelable = true
 
-    protected var mPositiveButtonListener: PCDialogNotifier? = null
-    protected var mNegativeButtonListener: PCDialogNotifier? = null
-    protected var mNeutralButtonListener: PCDialogNotifier? = null
+    internal var mPositiveButtonListener: PCDialogNotifier? = null
+    internal var mNegativeButtonListener: PCDialogNotifier? = null
+    internal var mNeutralButtonListener: PCDialogNotifier? = null
 
-    protected lateinit var mContext: AppCompatActivity
+    internal lateinit var mContext: AppCompatActivity
 
-    open fun Builder.show() {
+    fun Builder.show() {
         val dialog = PCCustomDialog()
         val bundle = Bundle().apply {
             putString("mTitle", mTitle)
@@ -49,57 +49,57 @@ open class PCDialog {
         dialog.show(mContext.supportFragmentManager, "")
     }
 
-     class Builder(context: AppCompatActivity) : PCDialog() {
+    class Builder(context: AppCompatActivity) {
 
-         init {
-            super.mContext = context
+        init {
+            mContext = context
         }
 
         fun setTitle(title: String): Builder {
-            super.mTitle = title
+            mTitle = title
             return this
         }
 
         fun setMessage(message: String): Builder {
-            super.mMessage = message
+            mMessage = message
             return this
         }
 
         fun setCancelable(cancelable: Boolean): Builder {
-            super.isCancelable = cancelable
+            isCancelable = cancelable
             return this
         }
 
         fun setPositiveButton(text: String, onClick: (dialog: Dialog) -> Unit): Builder {
-            super.mPositiveButtonText = text
+            mPositiveButtonText = text
             val listener = object : PCDialogNotifier {
                 override fun onClick(dialog: Dialog) {
                     onClick(dialog)
                 }
             }
-            super.mPositiveButtonListener = listener
+            mPositiveButtonListener = listener
             return this
         }
 
         fun setNegativeButton(text: String, onClick: (dialog: Dialog) -> Unit): Builder {
-            super.mNegativeButtonText = text
+            mNegativeButtonText = text
             val listener = object : PCDialogNotifier {
                 override fun onClick(dialog: Dialog) {
                     onClick(dialog)
                 }
             }
-            super.mNegativeButtonListener = listener
+            mNegativeButtonListener = listener
             return this
         }
 
         fun setNeutralButton(text: String, onClick: (dialog: Dialog) -> Unit): Builder {
-            super.mNeutralButtonText = text
+            mNeutralButtonText = text
             val listener = object : PCDialogNotifier {
                 override fun onClick(dialog: Dialog) {
                     onClick(dialog)
                 }
             }
-            super.mNeutralButtonListener = listener
+            mNeutralButtonListener = listener
             return this
         }
     }
