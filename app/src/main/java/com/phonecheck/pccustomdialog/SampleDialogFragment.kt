@@ -2,12 +2,10 @@ package com.phonecheck.pccustomdialog
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import com.phonecheck.pccustomdialog.PCDialog.show
+import androidx.fragment.app.Fragment
 import com.phonecheck.pccustomdialog.databinding.FragmentSampleDialogBinding
 
 class SampleDialogFragment : Fragment() {
@@ -23,7 +21,7 @@ class SampleDialogFragment : Fragment() {
 
         binding.btnShowDialog.setOnClickListener {
 
-            PCDialog.Builder(activity as AppCompatActivity).apply {
+            PCDialog.Builder(requireContext()).apply {
                 setTitle("Pop-Up Title")
                 setMessage("Message goes here")
                 setCancelable(true)

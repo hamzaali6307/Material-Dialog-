@@ -3,7 +3,6 @@ package com.phonecheck.pccustomdialog
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.phonecheck.pccustomdialog.PCDialog.show
 import com.phonecheck.pccustomdialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +34,5 @@ class MainActivity : AppCompatActivity() {
                 show()
             }
         }
-
     }
 }

@@ -1,6 +1,7 @@
 package com.phonecheck.pccustomdialog
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.phonecheck.pccustomdialog.ui.dialog.PCCustomDialog
@@ -20,39 +21,17 @@ object PCDialog {
     internal var mNegativeButtonListener: PCDialogNotifier? = null
     internal var mNeutralButtonListener: PCDialogNotifier? = null
 
-    internal lateinit var mContext: AppCompatActivity
-
-    fun Builder.show() {
-        val dialog = PCCustomDialog()
-        val bundle = Bundle().apply {
-            putString("mTitle", mTitle)
-            putString("mMessage", mMessage)
-            putString("mPositiveButtonText", mPositiveButtonText)
-            putString("mNegativeButtonText", mNegativeButtonText)
-            putString("mNeutralButtonText", mNeutralButtonText)
-        }
-        dialog.arguments = bundle
-        dialog.isCancelable = isCancelable
-
-        if (mPositiveButtonListener != null) {
-            dialog.setPositiveCallBack(mPositiveButtonListener!!)
-        }
-
-        if (mNegativeButtonListener != null) {
-            dialog.setNegativeCallBack(mNegativeButtonListener!!)
-        }
-
-        if (mNeutralButtonListener != null) {
-            dialog.setNeutralCallBack(mNeutralButtonListener!!)
-        }
-
-        dialog.show(mContext.supportFragmentManager, "")
-    }
-
-    class Builder(context: AppCompatActivity) {
+    class Builder(private val context: Context) {
 
         init {
-            mContext = context
+            mTitle = ""
+            mMessage = ""
+            mPositiveButtonText = ""
+            mNegativeButtonText = ""
+            mNeutralButtonText = ""
+            mPositiveButtonListener = null
+            mNegativeButtonListener = null
+            mNeutralButtonListener = null
         }
 
         fun setTitle(title: String): Builder {
@@ -101,6 +80,36 @@ object PCDialog {
             }
             mNeutralButtonListener = listener
             return this
+        }
+
+        fun show() {
+            val dialog = PCCustomDialog()
+            val bundle = Bundle().apply {
+                putString("mTitle", mTitle)
+                putString("mMessage", mMessage)
+                putString("mPositiveButtonText", mPositiveButtonText)
+                putString("mNegativeButtonText", mNegativeButtonText)
+                putString("mNeutralButtonText", mNeutralButtonText)
+            }
+            dialog.arguments = bundle
+            dialog.isCancelable = isCancelable
+
+            if (mPositiveButtonListener != null) {
+                dialog.setPositiveCallBack(mPositiveButtonListener!!)
+            }
+
+            if (mNegativeButtonListener != null) {
+                dialog.setNegativeCallBack(mNegativeButtonListener!!)
+            }
+
+            if (mNeutralButtonListener != null) {
+                dialog.setNeutralCallBack(mNeutralButtonListener!!)
+            }
+
+            if (context is AppCompatActivity) {
+                if (dialog.isVisible) dialog.dismiss()
+                dialog.show(context.supportFragmentManager, "")
+            }
         }
     }
 }

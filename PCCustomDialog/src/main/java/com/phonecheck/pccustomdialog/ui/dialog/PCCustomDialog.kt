@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.phonecheck.pccustomdialog.databinding.DialogCustomAlertBinding
 import com.phonecheck.pccustomdialog.ui.interfaces.PCDialogNotifier
@@ -47,13 +48,19 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
 
         with(binding) {
 
-            tvDialogTitle.text = title
-            tvDialogMessage.text = message
+            tvDialogTitle.setUpText(title)
+            tvDialogMessage.setUpText(message)
 
             btnDialogPositive.setUpButton(mPositiveButtonText)
             btnDialogNegative.setUpButton(mNegativeButtonText)
             btnDialogNeutral.setUpButton(mNeutralButtonText)
         }
+    }
+
+    private fun TextView.setUpText(title: String) {
+
+        visibility = if (title.isNotEmpty()) View.VISIBLE else View.GONE
+        text = title
     }
 
     private fun Button.setUpButton(title: String) {
@@ -111,6 +118,11 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
     override fun onDestroy() {
         super.onDestroy()
         if (dialog != null && dialog!!.isShowing) dialog!!.dismiss()
+
+        mPositiveButtonListener = null
+        mNegativeButtonListener = null
+        mNeutralButtonListener = null
+
         _binding = null
     }
 }
