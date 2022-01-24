@@ -1,9 +1,9 @@
 package com.phonecheck.pccustomdialog
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.phonecheck.pccustomdialog.ui.dialog.PCCustomDialog
 import com.phonecheck.pccustomdialog.ui.interfaces.PCDialogNotifier
 
@@ -21,7 +21,24 @@ object PCDialog {
     internal var mNegativeButtonListener: PCDialogNotifier? = null
     internal var mNeutralButtonListener: PCDialogNotifier? = null
 
-    class Builder(private val context: Context) {
+
+    class Builder(context: AppCompatActivity) {
+
+        private var dialog: PCCustomDialog? = null
+
+        fun isShowing(): Boolean = dialog != null && dialog!!.isVisible
+
+        fun dismiss() {
+            if (dialog != null && dialog!!.isVisible) dialog!!.dismiss()
+        }
+
+        private var dialogContext: Any = context
+
+        constructor(fragmentContext: Fragment) : this(
+            (fragmentContext.requireActivity() as AppCompatActivity)
+        ) {
+            dialogContext = fragmentContext
+        }
 
         init {
             mTitle = ""
@@ -82,8 +99,9 @@ object PCDialog {
             return this
         }
 
+
         fun show() {
-            val dialog = PCCustomDialog()
+            dialog = PCCustomDialog()
             val bundle = Bundle().apply {
                 putString("mTitle", mTitle)
                 putString("mMessage", mMessage)
@@ -91,24 +109,28 @@ object PCDialog {
                 putString("mNegativeButtonText", mNegativeButtonText)
                 putString("mNeutralButtonText", mNeutralButtonText)
             }
-            dialog.arguments = bundle
-            dialog.isCancelable = isCancelable
+            dialog!!.arguments = bundle
+            dialog!!.isCancelable = isCancelable
 
             if (mPositiveButtonListener != null) {
-                dialog.setPositiveCallBack(mPositiveButtonListener!!)
+                dialog!!.setPositiveCallBack(mPositiveButtonListener!!)
             }
 
             if (mNegativeButtonListener != null) {
-                dialog.setNegativeCallBack(mNegativeButtonListener!!)
+                dialog!!.setNegativeCallBack(mNegativeButtonListener!!)
             }
 
             if (mNeutralButtonListener != null) {
-                dialog.setNeutralCallBack(mNeutralButtonListener!!)
+                dialog!!.setNeutralCallBack(mNeutralButtonListener!!)
             }
+            if (dialog!!.isVisible) dialog!!.dismiss()
 
-            if (context is AppCompatActivity) {
-                if (dialog.isVisible) dialog.dismiss()
-                dialog.show(context.supportFragmentManager, "")
+            if (dialogContext is AppCompatActivity) {
+                val conn = dialogContext as AppCompatActivity
+                dialog!!.show(conn.supportFragmentManager, "")
+            } else if (dialogContext is Fragment) {
+                val conn = dialogContext as Fragment
+                dialog!!.show(conn.childFragmentManager, "")
             }
         }
     }

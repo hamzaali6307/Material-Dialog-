@@ -21,7 +21,7 @@ class SampleDialogFragment : Fragment() {
 
         binding.btnShowDialog.setOnClickListener {
 
-            PCDialog.Builder(requireContext()).apply {
+            PCDialog.Builder(this).apply {
                 setTitle("Pop-Up Title")
                 setMessage("Message goes here")
                 setCancelable(true)

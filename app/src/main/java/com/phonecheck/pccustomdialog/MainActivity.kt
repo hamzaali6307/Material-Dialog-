@@ -8,6 +8,9 @@ import com.phonecheck.pccustomdialog.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private var dialog: PCDialog.Builder? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -16,9 +19,10 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.fl_main, SampleDialogFragment())
             .commit()
 
+
         binding.btnShow.setOnClickListener {
 
-            PCDialog.Builder(this).apply {
+            dialog = PCDialog.Builder(this).apply {
                 setTitle("Pop-Up Title")
                 setMessage("Message goes here")
                 setCancelable(true)
@@ -35,4 +39,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }
