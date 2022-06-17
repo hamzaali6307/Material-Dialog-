@@ -1,4 +1,4 @@
-package com.phonecheck.pccustomdialog
+package com.hMaterial.customdialog
 
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +21,7 @@ class SampleDialogFragment : Fragment() {
 
         binding.btnShowDialog.setOnClickListener {
 
-            PCDialog.Builder(this).apply {
+            MaterialDialog.Builder(this).apply {
                 setTitle("Pop-Up Title")
                 setMessage("Message goes here")
                 setCancelable(true)

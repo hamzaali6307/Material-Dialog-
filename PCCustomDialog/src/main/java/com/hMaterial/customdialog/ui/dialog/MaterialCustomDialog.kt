@@ -1,4 +1,4 @@
-package com.phonecheck.pccustomdialog.ui.dialog
+package com.hMaterial.customdialog.ui.dialog
 
 import android.app.Dialog
 import android.graphics.drawable.ColorDrawable
@@ -10,23 +10,26 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import com.airbnb.lottie.LottieAnimationView
+import com.phonecheck.pccustomdialog.R
 import com.phonecheck.pccustomdialog.databinding.DialogCustomAlertBinding
-import com.phonecheck.pccustomdialog.ui.interfaces.PCDialogNotifier
+import com.hMaterial.customdialog.ui.interfaces.MaterialDialogNotifier
+import com.hMaterial.customdialog.utils.Constants
 
 
-internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
+internal class MaterialCustomDialog : DialogFragment(), View.OnClickListener {
 
     private var _binding: DialogCustomAlertBinding? = null
     private val binding get() = _binding!!
 
-    private var mPositiveButtonListener: PCDialogNotifier? = null
-    private var mNegativeButtonListener: PCDialogNotifier? = null
-    private var mNeutralButtonListener: PCDialogNotifier? = null
+    private var mPositiveButtonListener: MaterialDialogNotifier? = null
+    private var mNegativeButtonListener: MaterialDialogNotifier? = null
+    private var mNeutralButtonListener: MaterialDialogNotifier? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = DialogCustomAlertBinding.inflate(inflater)
 
@@ -41,7 +44,7 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
 
         val title = bundle?.getString("mTitle")!!
         val message = bundle.getString("mMessage")!!
-
+        val mDialogImageType = bundle.getString("mDialogType")!!
         val mPositiveButtonText = bundle.getString("mPositiveButtonText")!!
         val mNegativeButtonText = bundle.getString("mNegativeButtonText")!!
         val mNeutralButtonText = bundle.getString("mNeutralButtonText")!!
@@ -50,6 +53,8 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
 
             tvDialogTitle.setUpText(title)
             tvDialogMessage.setUpText(message)
+
+            llLoading.setUpDialogImage(mDialogImageType)
 
             btnDialogPositive.setUpButton(mPositiveButtonText)
             btnDialogNegative.setUpButton(mNegativeButtonText)
@@ -63,11 +68,21 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
         text = title
     }
 
+    private fun LottieAnimationView.setUpDialogImage(dialogImage: String) {
+        visibility = if (dialogImage != Constants.DEFAULT) View.VISIBLE else View.GONE
+        setAnimation(
+            when (dialogImage) {
+                Constants.SUCCESS -> R.raw.success
+                else -> R.raw.anim_error
+            }
+        )
+    }
+
     private fun Button.setUpButton(title: String) {
 
         visibility = if (title.isNotEmpty()) View.VISIBLE else View.GONE
         text = title
-        setOnClickListener(this@PCCustomDialog)
+        setOnClickListener(this@MaterialCustomDialog)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -89,15 +104,15 @@ internal class PCCustomDialog : DialogFragment(), View.OnClickListener {
         }
     }
 
-    fun setPositiveCallBack(listener: PCDialogNotifier) {
+    fun setPositiveCallBack(listener: MaterialDialogNotifier) {
         this.mPositiveButtonListener = listener
     }
 
-    fun setNegativeCallBack(listener: PCDialogNotifier) {
+    fun setNegativeCallBack(listener: MaterialDialogNotifier) {
         this.mNegativeButtonListener = listener
     }
 
-    fun setNeutralCallBack(listener: PCDialogNotifier) {
+    fun setNeutralCallBack(listener: MaterialDialogNotifier) {
         this.mNeutralButtonListener = listener
     }
 

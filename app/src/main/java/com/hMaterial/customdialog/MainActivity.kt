@@ -1,15 +1,17 @@
-package com.phonecheck.pccustomdialog
+package com.hMaterial.customdialog
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.phonecheck.pccustomdialog.R
 import com.phonecheck.pccustomdialog.databinding.ActivityMainBinding
+import com.hMaterial.customdialog.utils.Constants.SUCCESS
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var dialog: PCDialog.Builder? = null
+    private var dialog: MaterialDialog.Builder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +24,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnShow.setOnClickListener {
 
-            dialog = PCDialog.Builder(this).apply {
+            dialog = MaterialDialog.Builder(this).apply {
                 setTitle("Pop-Up Title")
                 setMessage("Message goes here")
                 setCancelable(true)
+                setDialogTypeImage(SUCCESS)
                 setPositiveButton("Blue Button") {
                     Log.e("TAG", "Positive")
                 }

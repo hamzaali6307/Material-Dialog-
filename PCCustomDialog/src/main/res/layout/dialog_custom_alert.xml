@@ -7,12 +7,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_20sdp"
-        android:clipToPadding="true"
-        app:cardBackgroundColor="@color/colorWhite"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true"
+        style="@style/MaterialCustomDialogCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,81 +22,46 @@
                 android:id="@+id/tv_dialog_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:fontFamily="@font/sf_bold"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_14ssp" />
+                style="@style/MaterialCustomDialogTextView"
+                />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/ll_loading"
+                style="@style/loadingStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
             <TextView
                 android:id="@+id/tv_dialog_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:fontFamily="@font/sp_regular"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_14ssp" />
+                style="@style/MaterialCustomDialogTextView" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_dialog_positive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
                 android:backgroundTint="@color/colorBlue"
-                android:fontFamily="@font/sf_bold"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:padding="@dimen/_10sdp"
-                android:stateListAnimator="@null"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_14ssp"
-                app:backgroundTint="@null"
-                app:cornerRadius="50dp" />
+                style="@style/MaterialCustomDialogButton"
+                 />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_dialog_negative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
+                style="@style/MaterialCustomDialogButton"
                 android:backgroundTint="@color/colorFailure"
-                android:fontFamily="@font/sf_bold"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:padding="@dimen/_10sdp"
-                android:stateListAnimator="@null"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_14ssp"
-                app:backgroundTint="@null"
-                app:cornerRadius="50dp" />
+                />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_dialog_neutral"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
                 android:backgroundTint="@color/colorRetry"
-                android:fontFamily="@font/sf_bold"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:padding="@dimen/_10sdp"
-                android:stateListAnimator="@null"
-                android:textAllCaps="false"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_14ssp"
-                app:backgroundTint="@null"
-                app:cornerRadius="50dp"
+                style="@style/MaterialCustomDialogButton"
                 app:rippleColor="#a6a6a6" />
 
             <View
