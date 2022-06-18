@@ -44,7 +44,7 @@ use this for image in dialog..
 ![WhatsApp Image 2022-06-19 at 2 53 39 AM (1)](https://user-images.githubusercontent.com/26882014/174458424-af08e02b-fa51-448d-a305-371dc104089d.jpeg)
 
 
-This library is basic for alert dialog to learn abooutt creating custom own lllibraries, As i am working on SDK's in my working enviroment for so long for hardware testing for Mobile. This time i plan to create libraries and upload it publlically for other developer to use it, so i can contribute in mobile side development
+This library is basic for alert dialog to learn abooutt creating custom own lllibraries, As i am working on SDK's in my working enviroment for so long for hardware testing for Mobile. This time i plan to create libraries and upload it publically for other developer to use it, so i can contribute in mobile side development
 Please view this llibrary and share your more suggestions to improve it 
 
 Thanks: Hamza ali
