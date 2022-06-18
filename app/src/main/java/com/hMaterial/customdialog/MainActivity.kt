@@ -3,8 +3,8 @@ package com.hMaterial.customdialog
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.phonecheck.pccustomdialog.R
-import com.phonecheck.pccustomdialog.databinding.ActivityMainBinding
+import com.HMaterial.customdialog.R
+import com.HMaterial.customdialog.databinding.ActivityMainBinding
 import com.hMaterial.customdialog.utils.Constants.SUCCESS
 
 class MainActivity : AppCompatActivity() {

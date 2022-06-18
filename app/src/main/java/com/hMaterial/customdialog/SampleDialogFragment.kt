@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.phonecheck.pccustomdialog.databinding.FragmentSampleDialogBinding
+import com.HMaterial.customdialog.databinding.FragmentSampleDialogBinding
 
 class SampleDialogFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.phonecheck.pccustomdialog
+package com.HMaterial.customdialog
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

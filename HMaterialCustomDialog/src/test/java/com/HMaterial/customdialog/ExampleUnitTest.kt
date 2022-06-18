@@ -1,4 +1,4 @@
-package com.phonecheck.pccustomdialog
+package com.HMaterial.customdialog
 
 import org.junit.Test
 

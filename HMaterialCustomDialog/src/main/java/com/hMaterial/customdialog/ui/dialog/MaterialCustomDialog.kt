@@ -10,9 +10,10 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import com.HMaterial.customdialog.R
+import com.HMaterial.customdialog.databinding.DialogCustomAlertBinding
 import com.airbnb.lottie.LottieAnimationView
-import com.phonecheck.pccustomdialog.R
-import com.phonecheck.pccustomdialog.databinding.DialogCustomAlertBinding
+
 import com.hMaterial.customdialog.ui.interfaces.MaterialDialogNotifier
 import com.hMaterial.customdialog.utils.Constants
 
