@@ -1,7 +1,7 @@
 # Material-Dialog-
 Material custom Dialog 
 
-Its basic allert dialog with 3 buttons
+Its basic alert dialog with 3 buttons
  positive buttton
  negitive button 
  neutrall button
