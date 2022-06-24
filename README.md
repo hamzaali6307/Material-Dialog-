@@ -47,6 +47,10 @@ use this for image in dialog..
 **To use this lib:-**
 implementation 'com.github.hamzaali6307:Material-Dialog-:1.0'
 
+repositories {
+        maven { url 'https://jitpack.io' } 
+    }
+
 
 
 This library is basic for alert dialog to learn abooutt creating custom own lllibraries, As i am working on SDK's in my working enviroment for so long for hardware testing for Mobile. This time i plan to create libraries and upload it publically for other developer to use it, so i can contribute in mobile side development
